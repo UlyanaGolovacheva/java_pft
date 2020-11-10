@@ -6,11 +6,10 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-public class GroupHelper {
-  private FirefoxDriver wd;
+public class GroupHelper extends HelperBase {
 
   public GroupHelper(FirefoxDriver wd) {
-    this.wd = wd;
+    super(wd); //обращение к конструктору базового класса
   }
 
   public void returnToGroupPage() {
@@ -25,12 +24,6 @@ public class GroupHelper {
     type(By.name("group_name"), groupData.getName());
     type(By.name("group_header"), groupData.getHeader());
     type(By.name("group_footer"), groupData.getFooter());
-  }
-
-  private void type(By locator, String text) {
-    click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
   }
 
   public void initGroupCreation() {
@@ -66,16 +59,8 @@ public class GroupHelper {
     click(By.xpath("//select[5]/option[2]"));
   }
 
-  private void select(By locator, String combobox) {
-    new Select(wd.findElement(locator)).selectByVisibleText(combobox);
-  }
-
   public void deleteSelectedGroups() {
     click(By.name("delete"));
-  }
-
-  private void click(By locator) {
-    wd.findElement(locator).click();
   }
 
   public void selectGroup() {
